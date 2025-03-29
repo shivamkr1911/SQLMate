@@ -1,20 +1,22 @@
-import React, { useState } from "react"
-import QueryEditor from "./components/codeEditor/CodeEditor"
-import QuerySelector from "./components/dropDown/DropDown"
-import ResultsTable from "./components/table/ReactTable"
+import Layout from "./containers/layout"
+import "./App.css"
+import { useState } from "react"
 
-function App() {
-  const [query, setQuery] = useState("")
-
+const predefinedQueriesDropDownOptions = [
+  { label: "Select all users", value: "SELECT * FROM users;" },
+  {
+    label: "Get orders above $100",
+    value: "SELECT * FROM orders WHERE amount > 100;",
+  },
+]
+export default function App() {
+  const [queriesDropDownOptions, setQueriesDropDownOptions] = useState(
+    predefinedQueriesDropDownOptions
+  )
   return (
-    <div>
+    <div className="App" id="app">
       <h1>SQL Query Runner</h1>
-      <QuerySelector setQuery={setQuery} />
-      <QueryEditor query={query} setQuery={setQuery} />
-      <button style={{ margin: "10px", padding: "5px" }}>Run Query</button>
-      <ResultsTable />
+      <Layout />
     </div>
   )
 }
-
-export default App
