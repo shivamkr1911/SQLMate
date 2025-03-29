@@ -5,7 +5,6 @@ import ResultsTable from "../components/table/ReactTable"
 import VerticalSplitter from "./splitter/verticalSplitter/VerticalSplitter"
 function Layout({ options, setOptions }) {
   const [query, setQuery] = useState("")
-  const [isModalOpen, setIsModalOpen] = useState(false)
   const butonList = [
     {
       label: "Run Query",
@@ -21,6 +20,11 @@ function Layout({ options, setOptions }) {
           alert("Please enter a query before saving.")
           return
         }
+        const isQueryExists = options.some((option) => option.value === query)
+        if (isQueryExists) {
+          alert("Query already exists.")
+          return
+        }
         const key = prompt("Enter a name for the query:")
 
         if (!key) {
@@ -28,15 +32,20 @@ function Layout({ options, setOptions }) {
           return
         }
 
-        console.log("Saving query:", key, query)
+        const newOption = {
+          label: key,
+          value: query,
+        }
+        setOptions((prev) => [...prev, newOption])
         // Add logic to save the query
+        alert("Query saved successfully.")
       },
     },
   ]
   return (
     <div className="layout" id="layout">
       <div className="left">
-        <QuerySelector setQuery={setQuery} />
+        <QuerySelector options={options} setQuery={setQuery} />
       </div>
       <VerticalSplitter>
         <QueryEditor query={query} setQuery={setQuery} buttonList={butonList} />

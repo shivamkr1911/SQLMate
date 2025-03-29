@@ -16,7 +16,10 @@ export default function App() {
   return (
     <div className="App" id="app">
       <h1>SQL Query Runner</h1>
-      <Layout />
+      <Layout
+        options={queriesDropDownOptions}
+        setOptions={setQueriesDropDownOptions}
+      />
     </div>
   )
 }
