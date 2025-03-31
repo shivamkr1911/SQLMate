@@ -1,6 +1,5 @@
 export const readCSV = async (fileUrl) => {
   try {
-    debugger
     const response = await fetch(fileUrl) // Fetch the CSV file
     if (!response.ok) throw new Error("Failed to load CSV file")
 

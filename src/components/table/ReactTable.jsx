@@ -17,7 +17,7 @@ const getColumnDefs = (csvData) => {
   }))
   return columns
 }
-const ResultsTable = () => {
+const ResultsTable = ({ loading, showTable }) => {
   const [columnDefs, setColumnDefs] = useState(getColumnDefs([{}]))
   const [rowData, setRowData] = useState([])
   // console.log("data", csvData)
@@ -25,7 +25,6 @@ const ResultsTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        debugger
         const data = await readCSV(CSV_FILE_PATH)
         setRowData(data)
         setColumnDefs(getColumnDefs(data)) // Set column definitions based on fetched data
@@ -37,22 +36,30 @@ const ResultsTable = () => {
   }, [])
   return (
     <div className="result-table">
-      <div className="ag-theme-alpine" style={{ height: 300, width: "100%" }}>
-        <h3>Query Results</h3>
-        <AgGridReact
-          rowData={rowData}
-          rowHeight={40}
-          columnDefs={columnDefs}
-          defaultColDef={{
-            resizable: true,
-            sortable: true,
-            cellStyle: { padding: "10px 20px" }, // Padding inside cells
-          }}
-          pagination={true} // ✅ Enable pagination
-          paginationPageSize={10} // ✅ Number of rows per page
-          paginationPageSizeSelector={[10, 20, 50]} // ✅ Page size options
-        />
-      </div>
+      {!loading && !showTable && (
+        <div className="primary-text">
+          Enter the Query Above to see the results.!!!
+        </div>
+      )}
+      {loading && <div className="loader"></div>}
+      {!loading && showTable && (
+        <div className="ag-theme-alpine" style={{ height: 300, width: "100%" }}>
+          <h3>Query Results</h3>
+          <AgGridReact
+            rowData={rowData}
+            rowHeight={40}
+            columnDefs={columnDefs}
+            defaultColDef={{
+              resizable: true,
+              sortable: true,
+              cellStyle: { padding: "10px 20px" }, // Padding inside cells
+            }}
+            pagination={true} // ✅ Enable pagination
+            paginationPageSize={10} // ✅ Number of rows per page
+            paginationPageSizeSelector={[10, 20, 50]} // ✅ Page size options
+          />
+        </div>
+      )}
     </div>
   )
 }

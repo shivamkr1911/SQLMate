@@ -4,12 +4,25 @@ import QuerySelector from "../components/dropDown/DropDown"
 import ResultsTable from "../components/table/ReactTable"
 function Layout({ options, setOptions }) {
   const [query, setQuery] = useState("")
+  const [loading, setLoading] = useState(false) // Loading state for query execution
+  const [showTable, setShowTable] = useState(false) // State to control table visibility
   const butonList = [
     {
       label: "Run Query",
       onClick: () => {
         console.log("Running query:", query)
         // Add logic to run the query and fetch results
+        if (!query) {
+          alert("Please enter a query before running.")
+          return
+        }
+        setLoading(true)
+        // Simulate running the query
+        setTimeout(() => {
+          setLoading(false)
+          setShowTable(true) // Show the table after query execution
+          alert("Query executed successfully.")
+        }, 2000)
       },
     },
     {
@@ -48,7 +61,7 @@ function Layout({ options, setOptions }) {
       </div>
       <div className="right">
         <QueryEditor query={query} setQuery={setQuery} buttonList={butonList} />
-        <ResultsTable />
+        <ResultsTable loading={loading} showTable={showTable} />
       </div>
     </div>
   )

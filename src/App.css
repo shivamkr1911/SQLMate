@@ -93,4 +93,30 @@ h1 {
   gap: 1rem;
   height: 100%;
   overflow-y: auto;
+  justify-content: center;
+  align-items: center;
+}
+.result-table .primary-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #474747;
+}
+/* Loader */
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #db4734;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
