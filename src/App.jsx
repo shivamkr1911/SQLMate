@@ -15,7 +15,7 @@ export default function App() {
   )
   return (
     <div className="App" id="app">
-      <h1>SQL Query Runner</h1>
+      <h1 className="heading">SQLMate</h1>
       <Layout
         options={queriesDropDownOptions}
         setOptions={setQueriesDropDownOptions}
