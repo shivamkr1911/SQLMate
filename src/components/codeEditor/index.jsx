@@ -2,7 +2,7 @@ import CodeEditor from "./CodeEditor"
 import Button from "../Buttons/Button"
 export default function ({ query, setQuery, buttonList, height }) {
   return (
-    <>
+    <div className="code-editor-container">
       <CodeEditor query={query} setQuery={setQuery} height={height} />
       <div className="buttons">
         {buttonList.map((button, index) => (
@@ -16,6 +16,6 @@ export default function ({ query, setQuery, buttonList, height }) {
           </Button>
         ))}
       </div>
-    </>
+    </div>
   )
 }

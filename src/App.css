@@ -4,26 +4,93 @@
   padding: 0;
   font-family: monospace;
 }
+
+body {
+  background-color: rgb(227, 227, 227);
+}
 h1 {
   text-align: center;
+  margin-bottom: 2rem;
 }
 
 #app {
-  background-color: aqua;
+  /* background-color: aqua; */
   padding: 1rem;
+  margin: 2rem;
   height: 100vh;
+  /* overflow: hidden; */
 }
 #layout {
   display: grid;
   grid-template-columns: 2fr 8fr;
   gap: 2rem;
-  background-color: blue;
+  /* background-color: blue; */
   height: 100%;
 }
 
-.left {
-  background-color: lightblue;
+.query-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  /* background-color: lightblue; */
+  /* padding: 1rem; */
+  border-radius: 0.5rem;
 }
 .right {
-  background-color: lightgreen;
+  /* background-color: lightgreen; */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Code Editor Section */
+.code-editor-container {
+  display: flex;
+  flex-direction: column;
+  /* padding: 1rem; */
+  margin-bottom: 1rem;
+  /* background-color: lightblue; */
+  gap: 1rem;
+}
+
+.code-editor-container .buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+.code-editor-container .buttons button {
+  padding: 0.5rem 1rem;
+  max-width: fit-content;
+  background-color: lightcoral;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.code-editor-container .buttons button:hover {
+  background-color: lightcoral;
+  color: white;
+}
+
+.code-editor {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  /* overflow-y: auto; */
+  gap: 1rem;
+}
+
+/* Ag-grid Table */
+.result-table {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  gap: 1rem;
+  height: 100%;
+  overflow-y: auto;
 }

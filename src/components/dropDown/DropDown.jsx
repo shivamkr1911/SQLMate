@@ -4,10 +4,11 @@ import Select from "react-select"
 const QuerySelector = ({ options, setQuery }) => {
   debugger
   return (
-    <div>
+    <div className="query-selector">
       <h3>Select a Query</h3>
       <Select
         options={options}
+        placeholder="Select a query..."
         onChange={(selected) => setQuery(selected.value)}
       />
     </div>

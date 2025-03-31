@@ -9,7 +9,7 @@ const QueryEditor = ({ query, setQuery, height }) => {
       <CodeMirror
         value={query}
         extensions={[sql()]}
-        // height ={`${height}px`}
+        height={`200px`}
         onChange={(value) => setQuery(value)}
         options={{
           mode: "sql",
@@ -22,7 +22,7 @@ const QueryEditor = ({ query, setQuery, height }) => {
   ) // Recreate only when `query`, `setQuery`, or `height` changes
 
   return (
-    <div>
+    <div className="code-editor">
       <h3>SQL Query Editor</h3>
       {codeMirrorInstance}
     </div>
