@@ -1,67 +1,59 @@
-import React from "react"
-import {
-  useReactTable,
-  getCoreRowModel,
-  flexRender,
-} from "@tanstack/react-table"
-
-const dummyData = [
-  { id: 1, name: "Alice", age: 25 },
-  { id: 2, name: "Bob", age: 30 },
-]
-
-const columns = [
-  {
-    accessorKey: "id",
-    header: "ID",
-  },
-  {
-    accessorKey: "name",
-    header: "Name",
-  },
-  {
-    accessorKey: "age",
-    header: "Age",
-  },
-]
-
+import React, { useEffect, useState } from "react"
+import { AgGridReact } from "ag-grid-react"
+import "ag-grid-community/styles/ag-grid.css"
+import "ag-grid-community/styles/ag-theme-alpine.css"
+import { AllCommunityModule, ModuleRegistry } from "ag-grid-community"
+import { CSV_FILE_PATH } from "../../config/config"
+import { readCSV } from "../../utils/csvReader"
+// Register all Community features
+ModuleRegistry.registerModules([AllCommunityModule])
+const getColumnDefs = (csvData) => {
+  const columns = Object.keys(csvData[0]).map((key) => ({
+    headerName: key,
+    field: key,
+    flex: 1,
+    sortable: true,
+    filter: true,
+  }))
+  debugger
+  return columns
+}
 const ResultsTable = () => {
-  const table = useReactTable({
-    data: dummyData,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  })
+  const [columnDefs, setColumnDefs] = useState(getColumnDefs([{}]))
+  const [rowData, setRowData] = useState([])
+  // console.log("data", csvData)
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await readCSV(CSV_FILE_PATH)
+        setRowData(data)
+        setColumnDefs(getColumnDefs(data)) // Set column definitions based on fetched data
+      } catch (error) {
+        console.error("Error fetching CSV data:", error)
+      }
+    }
+    fetchData()
+  }, [])
+  debugger
   return (
-    <div>
-      <h3>Query Results</h3>
-      <table style={{ border: "1px solid black", width: "100%" }}>
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th key={header.id}>
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="result-table">
+      <div className="ag-theme-alpine" style={{ height: 300, width: "100%" }}>
+        <h3>Query Results</h3>
+        <AgGridReact
+          rowData={rowData}
+          rowHeight={40}
+          columnDefs={columnDefs}
+          defaultColDef={{
+            resizable: true,
+            sortable: true,
+            cellStyle: { padding: "10px 20px" }, // Padding inside cells
+          }}
+          pagination={true} // ✅ Enable pagination
+          paginationPageSize={10} // ✅ Number of rows per page
+          paginationPageSizeSelector={[10, 20, 50]} // ✅ Page size options
+        />
+      </div>
     </div>
   )
 }
