@@ -1,7 +1,14 @@
-import React, { useState } from "react"
-import QueryEditor from "../components/codeEditor/index"
-import QuerySelector from "../components/dropDown/DropDown"
-import ResultsTable from "../components/table/ReactTable"
+import React, { Suspense, useState } from "react"
+// import QueryEditor from "../components/codeEditor/index"
+// import QuerySelector from "../components/dropDown/DropDown"
+// import ResultsTable from "../components/table/ReactTable"
+
+const QueryEditor = React.lazy(() => import("../components/codeEditor/index"))
+const QuerySelector = React.lazy(
+  () => import("../components/dropDown/DropDown")
+)
+const ResultsTable = React.lazy(() => import("../components/table/ReactTable"))
+
 function Layout({ options, setOptions }) {
   const [query, setQuery] = useState("")
   const [loading, setLoading] = useState(false) // Loading state for query execution
@@ -56,13 +63,19 @@ function Layout({ options, setOptions }) {
   ]
   return (
     <div className="layout" id="layout">
-      <div className="left">
-        <QuerySelector options={options} setQuery={setQuery} />
-      </div>
-      <div className="right">
-        <QueryEditor query={query} setQuery={setQuery} buttonList={butonList} />
-        <ResultsTable loading={loading} showTable={showTable} />
-      </div>
+      <Suspense fallback={<div className="loader"></div>}>
+        <div className="left">
+          <QuerySelector options={options} setQuery={setQuery} />
+        </div>
+        <div className="right">
+          <QueryEditor
+            query={query}
+            setQuery={setQuery}
+            buttonList={butonList}
+          />
+          <ResultsTable loading={loading} showTable={showTable} />
+        </div>
+      </Suspense>
     </div>
   )
 }
