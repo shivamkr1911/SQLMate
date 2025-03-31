@@ -2,7 +2,6 @@ import React, { useState } from "react"
 import QueryEditor from "../components/codeEditor/index"
 import QuerySelector from "../components/dropDown/DropDown"
 import ResultsTable from "../components/table/ReactTable"
-import VerticalSplitter from "./splitter/verticalSplitter/VerticalSplitter"
 function Layout({ options, setOptions }) {
   const [query, setQuery] = useState("")
   const butonList = [
@@ -47,10 +46,10 @@ function Layout({ options, setOptions }) {
       <div className="left">
         <QuerySelector options={options} setQuery={setQuery} />
       </div>
-      <VerticalSplitter>
+      <div className="right">
         <QueryEditor query={query} setQuery={setQuery} buttonList={butonList} />
         <ResultsTable />
-      </VerticalSplitter>
+      </div>
     </div>
   )
 }
