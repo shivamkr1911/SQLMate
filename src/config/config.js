@@ -1,1 +1,1 @@
-export const CSV_FILE_PATH = "src/assets/tables/customers.csv"
+export const CSV_FILE_PATH = "public/tables/customers.csv"

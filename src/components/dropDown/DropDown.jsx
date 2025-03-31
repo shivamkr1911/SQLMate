@@ -2,7 +2,6 @@ import React from "react"
 import Select from "react-select"
 
 const QuerySelector = ({ options, setQuery }) => {
-  debugger
   return (
     <div className="query-selector">
       <h3>Select a Query</h3>

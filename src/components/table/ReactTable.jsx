@@ -15,7 +15,6 @@ const getColumnDefs = (csvData) => {
     sortable: true,
     filter: true,
   }))
-  debugger
   return columns
 }
 const ResultsTable = () => {
@@ -26,6 +25,7 @@ const ResultsTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        debugger
         const data = await readCSV(CSV_FILE_PATH)
         setRowData(data)
         setColumnDefs(getColumnDefs(data)) // Set column definitions based on fetched data
@@ -35,7 +35,6 @@ const ResultsTable = () => {
     }
     fetchData()
   }, [])
-  debugger
   return (
     <div className="result-table">
       <div className="ag-theme-alpine" style={{ height: 300, width: "100%" }}>
